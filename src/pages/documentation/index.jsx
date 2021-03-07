@@ -43,6 +43,7 @@ class Documentation extends Language {
           duration: 1000,
           smooth: 'easeInOutQuint',
         });
+        location.hash = "#" + id;
       }
     });
   }
