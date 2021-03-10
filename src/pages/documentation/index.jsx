@@ -28,12 +28,12 @@ class Documentation extends Language {
   componentDidMount() {
     // 通过请求获取生成好的json数据，静态页和json文件在同一个目录下
     fetch(window.location.pathname.replace(/\.html$/i, '.json'))
-    .then(res => res.json())
-    .then((md) => {
-      this.setState({
-        __html: md && md.__html ? md.__html : '',
+      .then(res => res.json())
+      .then((md) => {
+        this.setState({
+          __html: md && md.__html ? md.__html : '',
+        });
       });
-    });
     this.markdownContainer.addEventListener('click', (e) => {
       const isAnchor = e.target.nodeName.toLowerCase() === 'a' && e.target.getAttribute('href') && anchorReg.test(e.target.getAttribute('href'));
       if (isAnchor) {
@@ -51,6 +51,15 @@ class Documentation extends Language {
   componentDidUpdate() {
     this.handleRelativeLink();
     this.handleRelativeImg();
+    const hash = location.hash;
+    if (hash) {
+      const id = hash.replace(/^#/g, "");
+      console.log(id);
+      scroller.scrollTo(id, {
+        duration: 1000,
+        smooth: 'easeInOutQuint',
+      });
+    }
   }
 
   handleRelativeLink() {
